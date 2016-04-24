@@ -14,27 +14,6 @@ descendant(X,Y):-parent(Y,X).
 descendant(X,Y):-parent(Y,Z),descendant(X,Z).
 relative(X,Y):-ancestor(X,Y);descendant(X,Y).
 
-male(jeremy).
-male(michael).
-male(matthew).
-male(gilbert).
-male(jr).
-male(juan).
-male(christopher).
-female(gabrielle).
-female(carmen).
-female(elvira).
-female(kathy).
-parent(gilbert,matthew).
-parent(juan,jr).
-parent(juan,jeremy).
-parent(gilbert, christopher).
-parent(gilbert,gabrielle).
-parent(carmen, gilbert).
-parent(kathy,michael).
-parent(elvira,jeremy).
-parent(carmen,elvira).
-parent(carmen,kathy).
 
 
 

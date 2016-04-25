@@ -25,3 +25,19 @@ filterfirstlast(X,[_|T]):- filterlast(X,T).
 f(X):-(first('(',X),last(')',X),filterfirstlast(Y,X),e(Y));(length(X,1),member(Y,X),(number(Y);char_type(Y,lower))).
 t(X):-(append(L1,[*|L2],X),t(L1),f(L2));(append(L1,[/|L2],X),t(L1),f(L2));f(X).
 e(X):-(append(L1,[+|L2],X),e(L1),t(L2));(append(L1,[/|L2],X),e(L1),e(L2));t(X).
+
+sum([],0).
+sum([H|T],X):- sum(T, Y),X is H + Y.
+subseq([], []).
+subseq([H|T], [H|R]) :- subseq(T,R).
+subseq([_|T], R) :- subseq(T,R).
+subseqsum(L,M,X):- subseq(L,Y),sum(Y,Z),M = Z,X = Y.
+
+fsm(0,[a|T]):-fsm(0,T).
+fsm(0,[b|T]):-fsm(0,T).
+fsm(0,[a|T]):-fsm(1,T).
+fsm(1,[b|T]):-fsm(2,T).
+fsm(2,[b|T]):-fsm(3,T).
+fsm(3,[a|T]):-fsm(3,T).
+fsm(3,[a|T]):-fsm(3,T).
+fsm(3,[]).

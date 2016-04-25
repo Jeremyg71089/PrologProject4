@@ -15,7 +15,13 @@ descendant(X,Y):-parent(Y,Z),descendant(X,Z).
 relative(X,Y):-ancestor(X,Y);descendant(X,Y).
 
 
-
-
-first(X,[H|T]):- X =H.
-f(L):- first('(',L);number(L);char_type(L,lower).
+first(X,[H|_]):- X = H.
+filterfirst(X, [_|T]):- X = T.
+last(X,[H|T]):-length(T,0), X = H.
+last(X,[_|T]):-not(length(T,0)),last(X,T).
+filterlast([W|X],[Y|Z]):-W = Y,length(X,0),length(Z,1).
+filterlast([W|X],[Y|Z]):- W = Y,filterlast(X,Z).
+filterfirstlast(X,[_|T]):- filterlast(X,T).
+f(X):-(first('(',X),last(')',X),filterfirstlast(Y,X),e(Y));(length(X,1),member(Y,X),(number(Y);char_type(Y,lower))).
+t(X):-(append(L1,[*|L2],X),t(L1),f(L2));(append(L1,[/|L2],X),t(L1),f(L2));f(X).
+e(X):-(append(L1,[+|L2],X),e(L1),t(L2));(append(L1,[/|L2],X),e(L1),e(L2));t(X).

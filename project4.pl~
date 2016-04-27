@@ -1,3 +1,5 @@
+
+
 brother(X,Y):-male(X),parent(Z,X),parent(Z,Y).
 sister(X,Y):-female(X),parent(Z,X),parent(Z,Y).
 mother(X,Y):-female(X),parent(X,Y).
@@ -12,11 +14,10 @@ ancestor(X,Y):-parent(X,Y).
 ancestor(X,Y):-parent(X,Z),ancestor(Z,Y).
 descendant(X,Y):-parent(Y,X).
 descendant(X,Y):-parent(Y,Z),descendant(X,Z).
-relative(X,Y):-ancestor(X,Y);descendant(X,Y).
+relative(X,Y):-(ancestor(Z,X),ancestor(Z,Y));(descendant(Z,X),descendant(Z,Y)).
 
 
 first(X,[H|_]):- X = H.
-filterfirst(X, [_|T]):- X = T.
 last(X,[H|T]):-length(T,0), X = H.
 last(X,[_|T]):-not(length(T,0)),last(X,T).
 filterlast([W|X],[Y|Z]):-W = Y,length(X,0),length(Z,1).
@@ -41,4 +42,3 @@ fsm(2,[b|T]):-fsm(3,T).
 fsm(3,[a|T]):-fsm(3,T).
 fsm(3,[a|T]):-fsm(3,T).
 fsm(3,[]).
-fsm(state,list).

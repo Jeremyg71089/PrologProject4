@@ -16,15 +16,13 @@ descendant(X,Y):-parent(Y,X).
 descendant(X,Y):-parent(Y,Z),descendant(X,Z).
 relative(X,Y):-(ancestor(Z,X),ancestor(Z,Y));(descendant(Z,X),descendant(Z,Y)).
 
-first(X,[H|_]):- X = H.
-last(X,[H|T]):-length(T,0), X = H.
-last(X,[_|T]):-not(length(T,0)),last(X,T).
-filterlast([W|X],[Y|Z]):-W = Y,length(X,0),length(Z,1).
-filterlast([W|X],[Y|Z]):- W = Y,filterlast(X,Z).
-filterfirstlast(X,[_|T]):- filterlast(X,T).
-f(X):-(first('(',X),last(')',X),filterfirstlast(Y,X),e(Y));(length(X,1),member(Y,X),(number(Y);char_type(Y,lower))).
-t(X):-(append(L1,[*|L2],X),t(L1),f(L2));(append(L1,[/|L2],X),t(L1),f(L2));f(X).
-e(X):-(append(L1,[+|L2],X),e(L1),t(L2));(append(L1,[/|L2],X),e(L1),e(L2));t(X).
+f([X]):-number(X).
+f([X]):-char_type(X,lower).
+f(X):-(append(['('|L1],[')'],X),e(L1)).
+t(X):-f(X).
+t(X):-(append(L1,[*|L2],X),t(L1),f(L2));(append(L1,[/|L2],X),t(L1),f(L2)).
+e(X):-t(X).
+e(X):-(append(L1,[+|L2],X),e(L1),t(L2));(append(L1,[/|L2],X),e(L1),e(L2)).
 
 sum([],0).
 sum([H|T],X):- sum(T, Y),X is H + Y.

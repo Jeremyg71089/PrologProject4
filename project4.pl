@@ -1,4 +1,7 @@
-
+/*Project 4*/
+/*Jeremy Galarza*/
+/*Anderson Giang*/
+/*Eric Hernandez*/
 
 brother(X,Y):-male(X),parent(Z,X),parent(Z,Y).
 sister(X,Y):-female(X),parent(Z,X),parent(Z,Y).

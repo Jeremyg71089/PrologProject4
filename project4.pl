@@ -14,7 +14,7 @@ ancestor(X,Y):-parent(X,Y).
 ancestor(X,Y):-parent(X,Z),ancestor(Z,Y).
 descendant(X,Y):-parent(Y,X).
 descendant(X,Y):-parent(Y,Z),descendant(X,Z).
-relative(X,Y):-(ancestor(Z,X),ancestor(Z,Y));(descendant(Z,X),descendant(Z,Y)).
+relatives(X,Y):-(ancestor(Z,X),ancestor(Z,Y));(descendant(Z,X),descendant(Z,Y)).
 
 f([X]):-number(X).
 f([X]):-char_type(X,lower).
